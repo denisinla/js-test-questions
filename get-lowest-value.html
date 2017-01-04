@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Get lowest value</title>
+  </head>
+  <body>
+    <!--
+        > write a function that searches collection "projects" to find the object with the lowest "e" value and return that object's "i" value.
+    -->
+    <div class="here"></div>
+    <script>
+        var projects = [{i:1, e:41}, {i:5, e:4}, {i:3, e:2}, {i:1, e:90}, {i:5, e:40}, {i:3, e:20}];
+
+        var getLowestValue = function(contents){
+
+              // sort with the smallest e property value
+              contents.sort(function(a, b){
+                      return a.e - b.e;
+                  });
+
+            // reduce contents to smallest i property value.
+            var smallest = contents.reduce(function(a, b){
+                    return a.i - b.i ? a.i : b.i;
+                });
+
+            return smallest;
+        }
+
+        document.querySelector('.here').insertAdjacentHTML('beforeend', '<p>' + getLowestValue(projects) + '</p>');
+    </script>
+    </body>
+  </html>

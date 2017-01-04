@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Up integers</title>
+  </head>
+  <body>
+    <!--
+        > write a function that arranges collection "scenarios" by "createdOn" in descending order (most current first) and returns the results.
+    -->
+    <div class="container">
+    	<h3>Scenarios</h3>
+    	<p>In descending order based on createdOn property.</p>
+      <ul class="orderedCollection">
+      </ul>
+    </div>
+
+    <script>
+    var scenarios = [{
+          "id": 3,
+          "name": "MASTER PROJECT",
+          "description": "MASTER PROJECT",
+          "auditInfo": {
+            "createdOn": "March 10, 2014",
+            "createdBy": {
+              "uuid": "system",
+              "name": "me"
+            }
+          }
+        }, {
+          "id": 1,
+          "name": "Test calculation",
+          "description": "Test calculation",
+          "auditInfo": {
+            "createdOn": "October 1, 2011",
+            "createdBy": {
+              "uuid": "system",
+              "name": "me"
+            }
+          }
+        }, {
+          "id": 2,
+          "name": "My Renamed Project - 1426026460724",
+          "description": "This is my new description - 1426026460750",
+          "auditInfo": {
+            "createdOn": "June 15, 2013",
+            "createdBy": {
+              "uuid": "system",
+              "name": "me"
+            }
+          }
+        }];
+
+        // - Lets sort through the array.
+        // - Dates in descending order.
+        var descDates = scenarios.sort(function(a, b) {
+          return new Date(b.auditInfo.createdOn) - new Date(a.auditInfo.createdOn);
+        });
+
+        descDates.forEach(function(showItems){
+        	console.log(showItems.name);
+        	document.querySelector('.orderedCollection').insertAdjacentHTML('beforeend','<li> - '+showItems.name+'</li>');
+        });
+
+    </script>
+    </body>
+  </html>

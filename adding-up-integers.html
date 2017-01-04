@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Up integers</title>
+  </head>
+  <body>
+    <!--
+        > write a function that sums all the values of "data".
+    -->
+    <div id="root">
+      <h3 class="total"></h3>
+    </div>
+    <script>
+      var data = [[[1,2,3,4,5],[[1],[2],[3],[4],[5],[6],[[1]]],[9,8,7,6,5,[1,2,3]]],[10,20,30,40,50],[21,33,55,66,77,88],[11,12,13,14,15,16,17,18,19],[[1000,1234],154,2122],[45,66,88,99,100,101]];
+
+        var addArrays = function(numbers){
+
+            /*
+            array was too dirty to flatten instead we're joining all the integers
+            then comma separating them. Then we map them into an array while making sure
+            they're integers.
+            */
+            var content = numbers.join().split(',').map(Number);
+
+            /* get the integers in array reduced to a single value[sum]*/
+            var reduction = content.reduce(function(a, b){
+            return a + b;
+            }, 0);
+            return reduction;
+        }
+      document.querySelector('.total').insertAdjacentHTML('beforeend', addArrays(data));
+    </script>
+    </body>
+  </html>
