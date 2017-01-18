@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Sample API consumption/ property value search of an object</title>
+        <style>
+            body{
+            font: 13px Arial, Helvetica, sans-serif;
+            color: #000;
+            background: #f9f9f9;
+            }
+            h3{
+            font-size: 18px;
+            }
+
+            .subscription{
+            display: flex;
+            justify-content: flex-start;
+            }
+            .subscription div{
+            width: 100px;
+            background: #fff;
+            padding: 10px;
+            text-align: center;
+            margin: 10px;
+            }
+            .subscription .currency{
+            color: #fd6006;
+            font-size: 22px;
+            font-weight: bold;
+            }
+            .subscription .total{
+            font-size: 12px;
+            font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <!--
+        > 1: fetch API(for this sample it will be local file)
+        > 2: find string value of property then loop through plans
+        > 3: create nodes to populate data on view template.
+        -->
+        <div id="root">
+          <h3 class="total"></h3>
+        </div>
+        <script>
+          // Lets create the function expression
+          var apiFetch = (function(){
+
+            // lets fetch the API
+            fetch('lc-content.json').then(function(response){
+
+              // parse the response back from the server
+              return response.json();
+
+            }).then(function(json){
+
+              // create variable from json object
+              var content = json;
+
+              // lets filter through the json object and
+              // return the string specified
+              var specific = content.filter(function(obj){
+                return obj.sku === 'lcdx-crate';
+              });
+
+              // now that we've returned the string, lets return
+              // its data-set as well and loop through nests using ES5
+              // since jquery is such a crutch.
+              specific.forEach(function(obj){
+                // lets loop through the plans data-set
+                obj.plans.forEach(function(plans){
+                  // lets write the node to the DOM.
+                  document.querySelector('.subscription').insertAdjacentHTML('afterbegin', '<div><h3 class="title">'+ plans.title + '</h3><p class="price"><span class="currency">$'+plans.cost+'</span></p><p class="total">Total: '+plans.price.amount+'</p></div>');
+                });
+
+              });
+
+            }).catch(function(error){
+
+              // if fetch response returned any errors lets
+              // execute a catch all and return the error message to console.
+              console.log(error.message);
+            });
+          })();
+    </script>
+  </body>
+</html>
